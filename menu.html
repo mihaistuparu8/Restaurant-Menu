@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <title>Pizza &amp; drinks menu</title>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<h1 class="title">Pizza &amp; drinks menu</h1>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-md-3">
+				<div class="imaginep">
+					<img id="produs1" src="img/Pmargherita.jpg" class="imagine" alt="...">
+					<img id="produs2" src="img/Proma.jpg" class="imagine" alt="...">
+					<img id="produs3" src="img/Pvegetariana.jpg" class="imagine" alt="...">
+					<img id="produs4" src="img/Pquattro.jpg" class="imagine" alt="...">
+					<img id="produs5" src="img/Ppepperoni.jpg" class="imagine" alt="...">
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3 class="subtitlu">Pizza</h3></div>
+					<div class="bo panel-body">
+						<ul class="pizza">
+							<li class="mancare" data-li="produs1">
+								<h4 class="pizaa">PIZZA MARGHERITA <span class="badge">18 lei</span> </h4>
+								<p>~Sos tomat și brânză Mozzarella.~</p>
+							</li>
+							<li class="mancare" data-li="produs2">
+								<h4 class="pizaa">PIZZA ROMA <span class="badge">25.50 lei</span> </h4>
+								<p>~Sos tomat, brânză Mozzarella, șuncă, ciuperci, măsline.~</p>
+							</li>
+							<li class="mancare" data-li="produs3">
+								<h4 class="pizaa">PIZZA VEGETARIANĂ <span class="badge">25.50 lei</span> </h4>
+								<p>~Sos tomat, brânză Mozzarella, ciuperci, ceapă, ardei, roșii, porumb.~</p>
+							</li>
+							<li class="mancare" data-li="produs4">
+								<h4 class="pizaa">PIZZA QUATTRO STAGIONI <span class="badge">25.50 lei</span> </h4>
+								<p>~Sos tomat, brânză Mozzarella, șuncă, pepperoni, ciuperci, ardei.~</p>
+							</li>
+							<li class="mancare" data-li="produs5">
+								<h4 class="pizaa">PIZZA PEPPERONI <span class="badge">29 lei</span> </h4>
+								<p>~Sos tomat, brânză Mozzarella, dublu pepperoni.~</p>
+							</li>
+						</ul>
+					</div>
+				</div> <!-- panel -->
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3 class="subtitlu">Drinks</h3></div>
+					<div class="bo panel-body">
+						<ul class="drinks">
+							<li class="mancare" data-li="produs6">
+								<h4>COCA COLA 0.5L <span class="badge">5 lei</span> </h4>
+							</li>
+							<li class="mancare" data-li="produs7">
+								<h4>SPRITE 0.5L <span class="badge">5 lei</span> </h4>
+							</li>
+							<li class="mancare" data-li="produs8">
+								<h4>FANTA 0.5L <span class="badge">5 lei</span> </h4>
+							</li>
+							<li class="mancare" data-li="produs9">
+								<h4>APĂ MINERALĂ 0.5 L <span class="badge">3.50 lei</span> </h4>
+							</li>
+							<li class="mancare" data-li="produs10">
+								<h4>NESTEA 0.5L <span class="badge">6 lei</span> </h4>
+							</li>
+						</ul>
+					</div>				
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="imaginep">
+					<img id="produs6" src="img/Cola.jpg" class="imagine" alt="...">
+					<img id="produs7" src="img/Sprite.jpg" class="imagine" alt="...">
+					<img id="produs8" src="img/Fanta.jpg" class="imagine" alt="...">
+					<img id="produs9" src="img/Apam.jpg" class="imagine" alt="...">
+					<img id="produs10" src="img/Nestea.jpg" class="imagine" alt="...">
+				</div>
+			</div>
+		</div> <!-- row -->
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 col-xs-12">
+				<div class="subsol panel panel-default">
+					<div class="panel-heading">
+						<h3 class="subtitlu">Comanda 
+						<a class="btn  btn-custom btn-default" href="#" role="button">Lanseaza comanda!</a>
+						</h3>
+					</div>
+					<div class="co panel-body">
+						<ul>
+							<li id="comanda"></li>
+						</ul>
+					</div>
+				</div>		
+			</div>
+		</div> <!-- row -->
+	</div> <!-- row -->
+
+</div> <!-- container-->
+
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

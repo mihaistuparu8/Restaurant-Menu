@@ -1,0 +1,79 @@
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+body {
+	/* background-color:#222; */
+	font-size: 1.2em;
+	background-image:url('../img/Hut.jpg');
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+.title {
+	margin:3%;
+	text-align:center;
+	color:white;
+	font-family: 'Pacifico', cursive;
+}
+.pizza,.drinks,#comanda {
+	list-style-type:none;
+	text-align:left;
+	margin-left:-40px;
+	margin-top:-10px;
+	}
+.subtitlu {
+	color:white;
+	font-family: 'Pacifico', cursive;	
+}
+.panel>.panel-heading {
+	background-color:#222;
+	padding-top:1px;
+	}
+h4 {
+	font-size: 130%;
+	font-weight:bold;
+}
+.bo {
+	height: 300px;
+    overflow: scroll;
+}
+.co {
+	height:80px;
+	overflow: scroll;
+}
+.pizza>li:hover,.drinks>li:hover {
+	color: #b700b7;
+	cursor:pointer;
+}
+.pizza>li:active,.drinks>li:active {
+	color: #a76f17;
+	cursor:progress;
+}
+.imagine {
+	position:relative;
+	width:100%;
+	height:100%;
+	display:none;
+}
+.btn {
+	float:right;
+}
+#butonx {
+	float:right;
+	margin-top:-30px;
+}
+.badge {
+	display:none;
+}
+
+
+    
