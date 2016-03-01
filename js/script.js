@@ -30,18 +30,25 @@ $('.tab-panels .tabs li').on('click', function() { //cauta li in clasa .tabs
 	}
 });
 
-$('.mancare').on('click', function() {  //?????
-	var titlu = $(this).children('h4');
-	$('#comanda').append(titlu.clone(), '<button id="butonx">x</button>');
+$('.pizza .mancare').on('click', function(event) { 
+	
+	event.preventDefault();
+	var $comanda = $("#comanda");
+	var $button = $('.butonx');
+	
+	$comanda.append($(this).clone());
+	$comanda.find('.mancare p').remove();
+	$button.addClass('active');
+	$comanda.append(button.clone());
 });
 
-$('.co').find('ul').delegate('#butonx', 'click', function(e) {
-	var remove = $(e.target).closest('li');
-	remove.remove();
-	$('.co').find('ul').append('<li id="comanda"></li>');
+$('#comanda').on('click', '.butonx', function (event) {
+	$("#comanda li:last-child").remove();
 });
 
 
+
+/*
 $('.btn').on('click', function() {  //?????
 	var string = $('#comanda').find('li');
 		var numar = string.children('span');
@@ -49,8 +56,7 @@ $('.btn').on('click', function() {  //?????
         alert(numar);
 
 });
-
-
+*/
 
 
 
