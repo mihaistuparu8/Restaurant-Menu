@@ -44,7 +44,8 @@ h4 {
 }
 .bo {
 	height: 300px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .co {
 	height:80px;
