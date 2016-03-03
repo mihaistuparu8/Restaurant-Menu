@@ -36,28 +36,15 @@ $('.pizza .mancare').on('click', function(event) {
 
 
 	var $comanda = $("#comanda");
-	var $button = $('.butonx');
-	
-
-	
-
-
+	var $button = $('.butonx');	
 
 	$comanda.append($(this).clone());
 	$comanda.find('.mancare p').remove();
 	$button.addClass('active');	
 
-
-
 	var element = $comanda.find('.mancare h4 span').text();
-	var element2 = element.concat('+');
-	
-	//var pret2 = pret.concat(',');
 	$('.raspuns').text('');
 	
-	
-
-	//$('.raspuns').append(element2);
 
  $( "#comanda span" ).each(function() {
   	var ap =$( this ).text().concat('+');  
@@ -67,26 +54,37 @@ $('.pizza .mancare').on('click', function(event) {
 	var txt = $('.raspuns').text();
   	var fin = txt.substr(0, txt.length-1);
   	var sum = eval(fin);
+
  	$('.raspuns').text('');
- 	$('.raspuns').append(sum);
-  	
-  
-	$comanda.append(button.clone());
+ 	$('.raspuns').append(sum); //afiseaza pretul curent
+	$comanda.append(button.clone()); 
 	
 });
 
 $('#comanda').on('click', '.butonx', function (event) {
-	$("#comanda li:last-child").remove();
+	
+
+	var txt = $('.raspuns').text();
+	var ultim = $("#comanda li:last-child").find('span').text();
+	var undo = eval(txt-ultim);
+
+	$('.raspuns').text('');
+	$('.raspuns').append(undo); //afiseaza pretul curent
+	$("#comanda li:last-child").remove(); //sterge ultimul elem
+
 });
 
 
 
 
 $('.btn').on('click', function() {  
+
 var suma = $('.raspuns').text('');
-var conv = parseInt(suma); // ????
+var txt = String(suma);
+//var conv = eval(suma); // ????
+
 var min = 30;
-if (conv<=min) {
+if (txt<=min) {
 	alert('The minimum price should be 30 for the selected products');
 }
 else {
