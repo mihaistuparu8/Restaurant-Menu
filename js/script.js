@@ -4,13 +4,13 @@ $(document).ready(function(){
 
 	$('.mancare').on('mouseover', function() {
 		var imagineId = $(this).attr('data-li');
-		$('#'+imagineId).fadeIn(20); 
+		$('#'+imagineId).fadeIn(1); 
 		$(this).find('span').show();
 	});
 
 	$('.mancare').on('mouseleave', function() {
 		var imagineId = $(this).attr('data-li');
-		$('#'+imagineId).fadeOut(20);
+		$('#'+imagineId).fadeOut(1);
 		$(this).find('span').hide();
 	});
 	//pentru categoriile de bauturi
