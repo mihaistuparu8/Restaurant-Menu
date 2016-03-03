@@ -33,13 +33,46 @@ $('.tab-panels .tabs li').on('click', function() { //cauta li in clasa .tabs
 $('.pizza .mancare').on('click', function(event) { 
 	
 	event.preventDefault();
+
+
 	var $comanda = $("#comanda");
 	var $button = $('.butonx');
 	
+
+	
+
+
+
 	$comanda.append($(this).clone());
 	$comanda.find('.mancare p').remove();
-	$button.addClass('active');
+	$button.addClass('active');	
+
+
+
+	var element = $comanda.find('.mancare h4 span').text();
+	var element2 = element.concat('+');
+	
+	//var pret2 = pret.concat(',');
+	$('.raspuns').text('');
+	
+	
+
+	//$('.raspuns').append(element2);
+
+ $( "#comanda span" ).each(function() {
+  	var ap =$( this ).text().concat('+');  
+  	$('.raspuns').append(ap);
+});
+
+	var txt = $('.raspuns').text();
+  	var fin = txt.substr(0, txt.length-1);
+  	var sum = eval(fin);
+ 	$('.raspuns').text('');
+ 	$('.raspuns').append(sum);
+  	
+  
 	$comanda.append(button.clone());
+	
 });
 
 $('#comanda').on('click', '.butonx', function (event) {
@@ -48,16 +81,19 @@ $('#comanda').on('click', '.butonx', function (event) {
 
 
 
-/*
-$('.btn').on('click', function() {  //?????
-	var string = $('#comanda').find('li');
-		var numar = string.children('span');
-		//var thenum = thestring.replace( /^\D+/g, '');
-        alert(numar);
+
+$('.btn').on('click', function() {  
+var suma = $('.raspuns').text('');
+var conv = parseInt(suma); // ????
+var min = 30;
+if (conv<=min) {
+	alert('The minimum price should be 30 for the selected products');
+}
+else {
+	alert('Success!');
+}
+
 
 });
-*/
-
-
 
 });
