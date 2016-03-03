@@ -78,19 +78,19 @@ $(document).ready(function(){
     var fdrinks = $("#comanda li h4").hasClass("drinks");
 
     if (fpizza && fdrinks){
-    	alert('Success!');
+    	$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");
     }
 	else if (txt >= pmin) {
-		alert('Success!');
+		$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");
 	}
 	else if (fpizza) {	
-		alert('The minimum price should be 30 for the selected products');		
+		$().toastmessage('showErrorToast', " The total price should be at least 30 when you choose to buy pizza only!");		
 	}
 	else if (fdrinks && (txt >= dmin)) {
-		alert('Success!');
+		$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");
 	}
 	else {
-		alert('The minimum price should be 10 for the selected products');
+		$().toastmessage('showErrorToast', "The total price should be at least 10 when you choose to buy drinks only!");
 	} 
 
 	});
