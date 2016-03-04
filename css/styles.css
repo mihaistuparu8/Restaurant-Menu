@@ -65,6 +65,9 @@ h4 {
 	height:100%;
 	display:none;
 }
+.active {
+	display:block;
+}
 .btn {
 	float:right;
 }

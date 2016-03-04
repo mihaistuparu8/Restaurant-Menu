@@ -3,17 +3,19 @@ console.log('Loaded script.js');
 $(document).ready(function(){
 
 	$('.mancare').on('mouseover', function() {
-		var imagineId = $(this).attr('data-li');
-		$('#'+imagineId).fadeIn(1); 
+
 		$(this).find('span').show();
+		var imagineId = $(this).attr('data-li');
+		var img = $('#'+imagineId).closest('.imaginep');
+		img.find('.imagine.active').removeClass('active').fadeOut(1000, showNextImg);
+
+		function showNextImg() {
+			$('#'+imagineId).fadeIn(1000); 
+			$('.mancare').find('span').hide();
+			$('#'+imagineId).addClass('active');				
+		}		
 	});
 
-	$('.mancare').on('mouseleave', function() {
-		var imagineId = $(this).attr('data-li');
-		$('#'+imagineId).fadeOut(1);
-		$(this).find('span').hide();
-	});
-	//pentru categoriile de bauturi
 	$('.tab-panels .tabs li').on('click', function() { //cauta li in clasa .tabs
 		var panel = $(this).closest('.tab-panels'); //verifica panel-ul in care se afla
 		panel.find('.tabs li.active').removeClass('active'); //scoate clasa active
