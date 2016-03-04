@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 		var txt = $('.raspuns').text();
   		var fin = txt.substr(0, txt.length-1);
-  		var sum = eval(fin);
+  		var sum = (new Function( 'return ' + fin))();
 
  		$('.raspuns').text('');
  		$('.raspuns').append(sum); //afiseaza pretul curent
@@ -63,7 +63,7 @@ $(document).ready(function(){
 	$('#comanda').on('click', '.butonx', function (event) {
 		var txt = $('.raspuns').text();
 		var ultim = $("#comanda li:last-child").find('span').text();
-		var undo = eval(txt-ultim);
+		var undo = (new Function( 'return ' + (txt-ultim)))();
 
 		$('.raspuns').text('');
 		$('.raspuns').append(undo); //afiseaza pretul curent
