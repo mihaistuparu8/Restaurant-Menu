@@ -52,7 +52,8 @@ h4 {
 	overflow: scroll;
 }
 .pizza>li:hover {
-	color: #b700b7;
+	color: #FF4500;
+	text-shadow: 1px 1px  #000;
 	cursor:pointer;
 }
 .pizza>li:active {
@@ -67,6 +68,7 @@ h4 {
 }
 .active {
 	display:block;
+	opacity:0.8;
 }
 .btn {
 	float:right;
@@ -96,7 +98,7 @@ h4 {
 
 .antet ul li.active {
 	color:#fff;
-	background: #222;
+	background: #FF4500;
 }
 
 .tab-panels .panel {
@@ -146,3 +148,4 @@ h4 {
 	margin-top:20px;
 	font-size:20px;
 }
+
