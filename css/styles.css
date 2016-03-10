@@ -12,7 +12,6 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 body {
-	/* background-color:#222; */
 	font-size: 1.2em;
 	background-image:url('../img/Hut.jpg');
 	background-repeat:no-repeat;
@@ -24,12 +23,14 @@ body {
 	color:white;
 	font-family: 'Pacifico', cursive;
 }
+
 .pizza, #comanda {
 	list-style-type:none;
 	text-align:left;
 	margin-left:-40px;
 	margin-top:-10px;
-	}
+}
+
 .subtitlu {
 	color:white;
 	font-family: 'Pacifico', cursive;	
@@ -37,39 +38,46 @@ body {
 .panel>.panel-heading {
 	background-color:#222;
 	padding-top:1px;
-	}
+}
+
 h4 {
 	font-size: 130%;
 	font-weight:bold;
 }
+
 .bo {
 	height: 300px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
 .co {
-	height:80px;
-	overflow: scroll;
+	padding:20px;
 }
+
 .pizza>li:hover {
 	color: #FF4500;
 	text-shadow: 1px 1px  #000;
 	cursor:pointer;
 }
+
 .pizza>li:active {
 	color: #a76f17;
 	cursor:progress;
 }
+
 .imagine {
 	position:relative;
 	width:100%;
 	height:100%;
 	display:none;
 }
+
 .active {
 	display:block;
 	opacity:0.8;
 }
+
 .btn {
 	float:right;
 }
@@ -114,10 +122,11 @@ h4 {
 .tabs {
 	margin-left:-40px;
 }
+
 .butonx {
 	float:right;
-	/*margin-top:-30px;*/
-	display:none;
+	color:red;
+	border-radius: 5px 5px 5px 5px;
 }
 
 .butonx.active {
@@ -139,13 +148,18 @@ h4 {
     border: 1px solid rgba(255,255,255,0,1);
     -webkit-box-shadow: inset 0 1px 10px 1px #000; 
     float:left;
-    }
+}
 
 .lei {
 	display: inline-block;
 }
+
 .valuta {
 	margin-top:20px;
 	font-size:20px;
 }
 
+.btn:hover {
+	color:#fff;
+	background: #FF4500;
+}
