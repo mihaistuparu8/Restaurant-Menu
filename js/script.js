@@ -21,6 +21,7 @@ var meniu = {
 		this.sumaProduselor = $('.raspuns'); 
 		this.comandaProduse = $("#comanda h4");
 		this.sorteaza = $("#sorteaza");
+		this.recomandariLink = $('a.recomandari');
 	},
 	bindEvents: function() {
 		var self = this;
@@ -33,64 +34,27 @@ var meniu = {
 		self.mancare.on('click', self.clickItem);
 		self.addIngredientsButton.on('click', self.adaugaIngrediente);
 		self.comanda.on('click', self.lanseazaComanda);
+		self.recomandariLink.on('click', self.arataRecomandari);
 		$(document).on('click', '#comanda .butonx', self.stergeProduse);
 		$(document).on('click', '.added-ingr .buttony', self.stergeIngrediente);
 		$('.page-link').on('click', self.pageLinks);
 		$(".parola-uitata").on('click', self.ascundeModalLogin);
 		
 
-
-		// $("#rate .stars").click(function (){
-
-		// 	var data = {};
-		// 	data.produs = $(this).parents(".mancare").find('h4').clone().children().remove().end().text().trim();
-		// 	data.rating = $(this).val();
-
-			
-
-	  // 	var data = {};
-			// data.produs = $(this).parents(".mancare").find('h4').clone().children().remove().end().text().trim();
-			// data.rating = $(this).val();
-
-			// $.post('rating.php', {produs: data.produs, rating: data.rating},
-			// 	function(data) {
-			// 		alert(data);
-			// 	});
-			
-
-		// });
-
-			
-	
-
-	
-		//alert(data.sos_tomat);
-	
-
-
-
-	/*
-
+	},
+	arataRecomandari: function() {
+		var recomandari = {};
 		var request = $.ajax({
-      method: "POST",
-      url: "proceseaza-comanda.php",
-      data: data
-    });
-
-    request.done(function () {
-
-      alert('Comanda dumneavoastra a fost salvata.');
-
-    });
-
-    request.fail(function( jqXHR, textStatus ) {
-      
-      alert('Comanda dumneavoastra nu a fost salvata.');
-    });
-
-	*/
-
-		//continuare
+			type: "POST",
+			url: "recomandari.php",
+			data: recomandari,
+			success: function(data) {
+				$('.recomandari-result').html(data);
+			},
+			error: function() {
+				$().toastmessage('showErrorToast', "Oups! Recomandarile nu sunt valabile momentan!");
+			}
+		})
 
 	},
 	panouriMancare: function() {
@@ -142,16 +106,15 @@ var meniu = {
       error: function() {
       	$().toastmessage('showErrorToast', "Oups! Produsele nu au fost sortate!");
       }
-
     });
-
-
 	},
 	ascundeModalLogin: function() {
 		$(this).closest(".modal").hide();
 		$(".modal-backdrop").hide();
 	},
 	pageLinks : function() {
+
+
     var url = $(this).attr("href");
     var hash = url.split('#')[1];
     var $activePage = $('.pagina.active');
@@ -259,24 +222,12 @@ var meniu = {
 	},
 	lanseazaComanda: function() {
 		var total = $('.raspuns').text();
-		var minPizza = 30;
-		var minDrinks = 10;		
-		var isPizza = $("#comanda h4").hasClass("pizaa");
-  	var isDrinks = $("#comanda h4").hasClass("drinks");
-
-  	if (isPizza && isDrinks) { //order conditions
-  		$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");   	
-  	}	else if (total >= minPizza) {
-				$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");	
-			}	else if (isPizza) {	
-					$().toastmessage('showErrorToast', " The total price should be at least 30 when you choose to buy pizza only!");			
-				}	else if (isDrinks && (total >= minDrinks)) {		
-						$().toastmessage('showSuccessToast', "You have successfully sent your order! Congratz!");
-					}	else if (isDrinks){
-							$().toastmessage('showErrorToast', "The total price should be at least 10 when you choose to buy drinks only!");
-						}	else {
-								$().toastmessage('showErrorToast', "Your order list is empty!");
-							}
+		var require = 20;	
+		if(total<require) {
+			$().toastmessage('showErrorToast', "Comanda trebuie sa fie de minimum 20.lei!");
+		}	else {
+			$().toastmessage('showSuccessToast', "Felicitari! Ai trimis cu succes comanda!"); 
+		}
 	}, 
 	validation: function() {
 		$.validator.setDefaults({

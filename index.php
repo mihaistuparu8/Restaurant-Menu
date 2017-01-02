@@ -140,7 +140,7 @@
 									</ul>
 								</div>
 								<div id="Pizza" class="panel active">
-									<ul class="pizza">
+									<ul class="food">
 
 										<?php if (isset($_POST['submit'])): ?>
 											<?php foreach ($query as $row): ?>
@@ -194,7 +194,7 @@
 									</ul>
 								</div>
 								<div id="All" class="panel active">
-									<ul class="pizza">
+									<ul class="bauturi">
 										<li class="mancare" data-li="produs6">
 											<h4 class="drinks">COCA COLA 0.5L <span class="badge pret">5</span> </h4>
 										</li>
@@ -231,7 +231,7 @@
 									</ul>
 								</div>
 								<div id="Soda" class="panel">
-									<ul class="pizza">
+									<ul class="bauturi">
 										<li class="mancare" data-li="produs6">
 											<h4 class="drinks">COCA COLA 0.5L <span class="badge pret">5</span> </h4>
 										</li>
@@ -250,7 +250,7 @@
 									</ul>
 								</div>
 								<div id="Beer" class="panel">
-									<ul class="pizza">
+									<ul class="bauturi">
 										<li class="mancare" data-li="produs11">
 											<h4 class="drinks">BERE URSUS 0.5L <span class="badge pret">5</span> </h4>
 										</li>
@@ -266,7 +266,7 @@
 									</ul>
 								</div>
 								<div id="Rum" class="panel">
-									<ul class="pizza">
+									<ul class="bauturi">
 										<li class="mancare" data-li="produs15">
 											<h4 class="drinks">APPLETON Estate <span class="badge pret">170</span> </h4>
 										</li>

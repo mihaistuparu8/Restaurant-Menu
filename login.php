@@ -17,6 +17,7 @@ function login() {
 		if ($login->rowCount() == 1) {
 			$user = $login->fetch(PDO::FETCH_ASSOC);	
 			$_SESSION['nume_utilizator'] = $user['nume'];
+			$_SESSION['id_utilizator'] = $user['user_id'];
 			$_SESSION['logged_in'] = 1;
 			return true;
 		} else {

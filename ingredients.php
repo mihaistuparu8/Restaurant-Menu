@@ -22,7 +22,8 @@
 			'AND ingrediente LIKE "%'.$masline.'%"'.
 			'AND ingrediente LIKE "%'.$porumb.'%"'.
 			'AND ingrediente LIKE "%'.$rosii.'%"'.
-			'AND ingrediente LIKE "%'.$sunca.'%"'
+			'AND ingrediente LIKE "%'.$sunca.'%"'.
+			'AND categorie = "pizza"'
 			);
 		$query->execute();
 	}

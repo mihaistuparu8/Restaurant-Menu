@@ -15,55 +15,50 @@
 	$rosii = $_POST['rosii'];
 	$sunca = $_POST['sunca'];
 
-	$query =$db->prepare('SELECT * FROM sac_produse 
-		WHERE ingrediente LIKE "%'.$sos_tomat.'%"'.
-		'AND ingrediente LIKE "%'.$ardei.'%"'.
-		'AND ingrediente LIKE "%'.$branza_mozzarella.'%"'.
-		'AND ingrediente LIKE "%'.$ceapa.'%"'.
-		'AND ingrediente LIKE "%'.$ciuperci.'%"'.
-		'AND ingrediente LIKE "%'.$dublu_pepperoni.'%"'.
-		'AND ingrediente LIKE "%'.$masline.'%"'.
-		'AND ingrediente LIKE "%'.$porumb.'%"'.
-		'AND ingrediente LIKE "%'.$rosii.'%"'.
-		'AND ingrediente LIKE "%'.$sunca.'%"'
+	$query =$db->prepare('SELECT * FROM sac_media_rating RIGHT JOIN sac_produse'.
+		' ON sac_media_rating.id_produs = sac_produse.id_produs'.
+		' WHERE ingrediente LIKE "%'.$sos_tomat.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$ardei.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$branza_mozzarella.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$ceapa.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$ciuperci.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$dublu_pepperoni.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$masline.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$porumb.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$rosii.'%" '.
+		' AND sac_produse.ingrediente LIKE "%'.$sunca.'%" '
 		);
 	$query->execute();
-
  ?>
+	<ul class="food">
+		<?php foreach ($query as $row): ?>
+			<li class="mancare sort-food" data-li="produs<?php echo $row['id_produs']; ?>" data-tag="<?php echo $row['categorie']; ?>" >
+				<h4 class="pizaa">
+					<?php echo $row['nume_produs']; ?> 
+					<span class="badge pret">
+						<?php echo $row['pret']; ?>
+					</span>
+			  </h4>
+				<ul class="rating_widget">
+					<li class="star" ><span>1</span></li>
+					<li class="star" ><span>2</span></li>
+					<li class="star" ><span>3</span></li>
+					<li class="star" ><span>4</span></li>
+					<li class="star" ><span>5</span></li>
+				</ul>
+			 	<input name="rating" value="0" id="rating_star" type="hidden" postID="1" />
+		    <div class="overall-rating">
+		    	<?php if($row['voturi'] == NULL): ?>
+		    		<p class="no-votes">Produsul nu a primit voturi!</p>
+		    	<?php else: ?>
+		    	(Rating <span id="media"><?php echo $row['media']; ?></span>
+		      Bazat pe <span id="voturi"><?php echo $row['voturi']; ?></span>  voturi.)
+		    <?php endif; ?>
+		    	<p class="p-ingrediente">Ingrediente: <?php echo $row['ingrediente']; ?></p>
+		    </div>
+				
+			</li>
+		<?php endforeach; ?>
+	</ul>
 
-	<?php foreach ($query as $row): ?>
-		<li class="mancare" data-tag="<?php echo $row['categorie']; ?>" data-li="produs<?php echo $row['id_produs']; ?>">
-			<h4 class="pizaa">
-				<?php echo $row['nume_produs']; ?> 
-				<span class="badge pret">
-					<?php echo $row['pret']; ?>
-				</span>
-		  </h4>
-		  <div class="inner-rating">
-				<div id='rate' class="rating">
-			    <input class="stars" type="radio" id="star5" name="rating<?php echo $row['id_produs']; ?>" value="5" />
-			    <label class = "full" for="star5" title="Awesome - 5 stars"></label>
-			    <input class="stars" type="radio" id="star4half" name="rating<?php echo $row['id_produs']; ?>" value="4.5" />
-			    <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-			    <input class="stars" type="radio" id="star4" name="rating<?php echo $row['id_produs']; ?>" value="4" />
-			    <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-			    <input class="stars" type="radio" id="star3half" name="rating<?php echo $row['id_produs']; ?>" value="3.5" />
-			    <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-			    <input class="stars" type="radio" id="star3" name="rating<?php echo $row['id_produs']; ?>" value="3" />
-			    <label class = "full" for="star3" title="Meh - 3 stars"></label>
-			    <input class="stars" type="radio" id="star2half" name="rating<?php echo $row['id_produs']; ?>" value="2.5" />
-			    <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-			    <input class="stars" type="radio" id="star2" name="rating<?php echo $row['id_produs']; ?>" value="2" />
-			    <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-			    <input class="stars" type="radio" id="star1half" name="rating<?php echo $row['id_produs']; ?>" value="1.5" />
-			    <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-			    <input class="stars" type="radio" id="star1" name="rating<?php echo $row['id_produs']; ?>" value="1" />
-			    <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-			    <input class="stars" type="radio" id="starhalf" name="rating<?php echo $row['id_produs']; ?>" value="0.5" />
-			    <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-				</div>
-			</div>
-			<p class="p-ingrediente"><?php echo $row['ingrediente']; ?></p>
-		</li>
-
-	<?php endforeach; ?>
+<script src="js/sort.js"></script>

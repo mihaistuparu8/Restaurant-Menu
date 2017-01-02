@@ -4,7 +4,9 @@ require_once 'header.php';
 if(!isset($_SESSION['logged_in'])) {
 	exit();
 }
-
+$query = $db->prepare("SELECT rating_number, FORMAT((total_points / rating_number),1) as average_rating FROM sac_rating WHERE post_id = 1 AND status = 1");
+$query->execute();
+//$ratingRow = $result->fetch_assoc();
 
 ?>
 	
@@ -19,7 +21,8 @@ if(!isset($_SESSION['logged_in'])) {
 					</button>
 					<div class="collapse navbar-collapse" id="navHeader">
 						<ul class="meniu nav navbar-nav navbar-right">
-							<li class="active"><a href="logged.php#acasa" title="Pagina principală">Home</a></li>
+							<li class="active"><a class="acasa page-link" href="logged.php#acasa" title="Pagina principală">Home</a></li>
+							<li class="recomandari"><a class="recomandari page-link" href="logged.php#recomandari">Recomandari</a></li>
 							<li>
 									
 									<div class="dropdown logged-dropdown">
@@ -97,8 +100,12 @@ if(!isset($_SESSION['logged_in'])) {
 										</div> <!-- ingrediente-on-->
 										<div class="row">
 											<div class="col-xs-12">
+												
 												<h3 class="subtitlu">
 													<input type="button" name="submit" value="Sortează după ingrediente!" id="sorteaza" class="sorteaza btn btn-default"/>
+												</h3>
+												<h3 class="subtitlu">
+													<a href="logged.php#recomandari" class="recomandari btn btn-default page-link" id="recomandari">Recomandari de produse!</a>
 												</h3>
 											</div>
 										</div>
@@ -111,8 +118,8 @@ if(!isset($_SESSION['logged_in'])) {
 					</div>
 				</div> <!-- row -->
 				<div class="row">
-					<div class="col-xs-12 hidden-xs col-sm-6 col-md-3">
-						<div class="imaginep">
+					<div class="imagini col-xs-12 hidden-xs col-sm-6 col-md-3">
+						<div class="imaginep food-images">
 							<img id="produs1" src="img/Pmargherita.jpg" class="imagine" alt="...">
 							<img id="produs2" src="img/Proma.jpg" class="imagine active" alt="...">
 							<img id="produs3" src="img/Pvegetariana.jpg" class="imagine" alt="...">
@@ -158,7 +165,7 @@ if(!isset($_SESSION['logged_in'])) {
 										</ul>
 									</div>
 									<div id="All" class="panel active">
-										<ul class="pizza">
+										<ul class="bauturi">
 											<li class="mancare" data-li="produs6">
 												<h4 class="drinks">COCA COLA 0.5L <span class="badge pret">5</span> </h4>
 											</li>
@@ -195,7 +202,7 @@ if(!isset($_SESSION['logged_in'])) {
 										</ul>
 									</div>
 									<div id="Soda" class="panel">
-										<ul class="pizza">
+										<ul class="bauturi">
 											<li class="mancare" data-li="produs6">
 												<h4 class="drinks">COCA COLA 0.5L <span class="badge pret">5</span> </h4>
 											</li>
@@ -214,7 +221,7 @@ if(!isset($_SESSION['logged_in'])) {
 										</ul>
 									</div>
 									<div id="Beer" class="panel">
-										<ul class="pizza">
+										<ul class="bauturi">
 											<li class="mancare" data-li="produs11">
 												<h4 class="drinks">BERE URSUS 0.5L <span class="badge pret">5</span> </h4>
 											</li>
@@ -230,7 +237,7 @@ if(!isset($_SESSION['logged_in'])) {
 										</ul>
 									</div>
 									<div id="Rum" class="panel">
-										<ul class="pizza">
+										<ul class="bauturi">
 											<li class="mancare" data-li="produs15">
 												<h4 class="drinks">APPLETON Estate <span class="badge pret">170</span> </h4>
 											</li>
@@ -244,7 +251,7 @@ if(!isset($_SESSION['logged_in'])) {
 							</div>				
 						</div>
 					</div>
-					<div class="col-xs-12 hidden-xs col-sm-6 col-md-3">
+					<div class="imagini col-xs-12 hidden-xs col-sm-6 col-md-3">
 						<div class="imaginep">
 							<img id="produs6" src="img/Cola.jpg" class="imagine active" alt="...">
 							<img id="produs7" src="img/Sprite.jpg" class="imagine" alt="...">
@@ -299,6 +306,56 @@ if(!isset($_SESSION['logged_in'])) {
 				</div>
 			</div> <!-- row -->
 		</div>  <!-- cos pagina-->
+		<div class="recomandari pagina">
+			<div class="bara navbar navbar-inverse navbar-static-top ">
+				<div class="container">
+					<a href="logged.php#acasa" class="navbar-brand subtitlu">Restaurant menu</a>
+					<button class="navbar-toggle" data-toggle="collapse" data-target="#navHeader">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navHeader">
+						<ul class="meniu nav navbar-nav navbar-right">
+							<li class="acasa"><a class="acasa page-link" href="logged.php#acasa" title="Pagina principală">Home</a></li>
+							<li class="active recomandari"><a class="recomandari page-link" href="logged.php#recomandari">Recomandari</a></li>
+							<li>
+								<div class="dropdown logged-dropdown">
+								  <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    Cont - <?php echo $_SESSION['nume_utilizator']; ?>
+								    <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								    <li><a href="logout.php">Ieși din cont!</a></li>
+								  </ul>
+								</div>
+							</li>
+							<li>
+								<a class="page-link" href="logged.php#cos" title="Coș de cumpărături">
+									<div class="cart"></div>
+								</a>
+							</li>
+						</ul> <!-- meniu -->
+					</div>
+				</div> <!--container -->	
+			</div> <!-- navbar -->
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 col-xs-12">
+					<div class="recomandari-panel panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-12">
+									<h3 class="subtitlu recomandari-titlu">Recomandari pe baza voturilor!</h3>
+								</div>
+							</div>					
+						</div>
+						<div class="recomandari-result panel-body">
+							
+						</div>
+					</div>	<!-- recomandari-panel	  -->
+				</div>
+			</div>
+		</div>
 
 <?php 
 

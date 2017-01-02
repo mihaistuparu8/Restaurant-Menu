@@ -51,7 +51,10 @@ body {
     padding-bottom: 15px;
     padding-top: 15px;
 }
-.pizza,
+.bauturi {
+	padding-top: 5px;
+}
+.bauturi,.food,
 #comanda {
     list-style-type: none;
     text-align: left;
@@ -79,14 +82,20 @@ h4 {
     padding: 20px;
     padding-bottom: 0px;
 }
-.pizaa {
-    margin-bottom: 2px;
+.food {
+	margin-top: 5px;
 }
-.pizza>li:hover {
+.bauturi>li>h4,
+.food>li>h4 {
+    margin-bottom: -1px;
+}
+.bauturi>li:hover,
+.food>li:hover {
     color: #FF4500;
     cursor: pointer;
 }
-.pizza>li:active {
+.bauturi>li:active,
+.food>li:active {
     color: #a76f17;
     cursor: progress;
 }
@@ -131,7 +140,6 @@ h4 {
 .tab-panels .panel {
     display: none;
     background: #fff;
-    padding-top: 10px;
     border-radius: 0 0 10px 10px;
 }
 .tab-panels .panel.active {
@@ -249,7 +257,8 @@ h4 {
     display: none;
 }
 
-.sorteaza {
+h3 .sorteaza,
+h3 .recomandari {
     margin-right: 10px;
 }
 
@@ -389,36 +398,53 @@ input.error {
 
 /* rating */
 
-.rating {
-    border: none;
+
+.rating_widget{
+    padding: 0px;
+    margin: 0px;
     float: left;
+    margin-right: 5px;
 }
-.rating > input {
+.rating_widget li{
+    line-height: 0px;
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 2px;
+    list-style: none;
+    float: left;
+    cursor: pointer;
+}
+.rating_widget li span{
     display: none;
 }
-.rating > label:before {
-    margin: 1px;
-    font-size: 1.2em;
-    font-family: FontAwesome;
-    display: inline-block;
-    content: "\f005";
+
+.overall-rating{
+	font-size: 14px;
+	margin-top: 2px;
+	color:  #333;
 }
-.rating > .half:before {
-    content: "\f089";
-    position: absolute;
+
+.star {
+	background-position: 0px 0px;
+	background-image: url("../img/widget_star.gif");
 }
-.rating > label {
-    color: #ddd;
-    float: right;
+
+.selected {
+	background-position: 0px -20px;
 }
-.rating > input:checked ~ label,
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: #FFD700;
+
+.no-votes, {
+	display: inline;
+	padding-left: 5px;
 }
-.rating > input:checked + label:hover,
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label,
-.rating > input:checked ~ label:hover ~ label {
-    color: #FFED85;
+
+/* recomandari page */
+.recomandari-titlu {
+	text-align: center;
+}
+
+.recomandari-panel {
+	margin-top: 20px;
 }
