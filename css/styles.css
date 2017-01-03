@@ -503,3 +503,23 @@ input.quantity {
 	padding: 0;
 	text-align: center;
 }
+
+/*livrare page*/
+.livrare-col {
+    margin-top: 50px;
+}
+
+.livrare-heading {
+	text-align: center;
+}
+
+.livrare-paragraf {
+	color: #555;
+	font-size: 150%;
+	font-weight: 700;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.trimite-comanda {
+	color: #000;
+}

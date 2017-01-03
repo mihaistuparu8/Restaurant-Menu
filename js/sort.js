@@ -10,6 +10,7 @@
 			this.panelBody = $('.bo');
 			this.comandaPanel = $('#comanda');
 			this.sumaProduselor = $('.raspuns'); 
+			this.afisorComanda = $('.afisorComanda');
 			
 		},
 		bindEvents: function() {
@@ -125,9 +126,30 @@
 			sort.calculateTotalPrice();
 
 		},
-		calculateTotalPrice: function() {
+		calculateTotalPrice : function() {
 
-		},
+	    if(event) {
+	      event.preventDefault();
+	    }
+
+	    var total = 0;
+	    sort.comandaPanel.find('.totalProdus').each( function(){
+
+	      var pret = $(this).text().replace("lei","");
+	      var cantitate = $(this).parents('.item').find('.quantity').val();
+
+	      cantitate = parseInt(cantitate);
+	      pret = parseFloat(pret.trim());
+	      total += pret;
+	    });
+
+	    var transport = 20;
+	    var totalCom = transport + total;
+	    sort.afisorComanda.find('.totalPrice').html(total + ' lei');
+	    sort.afisorComanda.find('.transport').html(transport + ' lei');
+	    sort.afisorComanda.find('.totalCom').html(totalCom + ' lei');
+	    sort.sumaProduselor.html(totalCom);
+	  },
 	}
 	sort.init();
 })();

@@ -13,7 +13,7 @@ var meniu = {
 		this.tabs = $('.tabs li');
 		this.tabsFood = $('.tabs-food li');
 		this.addIngredientsButton = $('.add-ingredients');
-		this.comanda = $('.lanseaza');
+		this.checkout = $('#checkout');
 		this.panelBody = $('.bo');
 		this.panel = $('.panel');
 		this.comandaPanel = $('#comanda');  
@@ -24,6 +24,8 @@ var meniu = {
 		this.recomandariLink = $('a.recomandari');
 		this.topRated = $('.top-rated');
 		this.topVoted = $('.top-voted');
+		this.afisorComanda = $('.afisorComanda');
+		this.afisorLivrare = $('.afisorLivrare');
 	},
 	bindEvents: function() {
 		var self = this;
@@ -35,17 +37,18 @@ var meniu = {
 		self.tabsFood.on('click', self.panouriMancare);
 		self.mancare.on('click', self.clickItem);
 		self.addIngredientsButton.on('click', self.adaugaIngrediente);
-		self.comanda.on('click', self.lanseazaComanda);
+		self.checkout.on('click', self.lanseazaCheckout);
 		self.topRated.on('click', self.showRated);
 		self.topVoted.on('click', self.showVoted);
 		self.recomandariLink.on('click', self.arataRecomandari);
+		this.comandaPanel.on('change','.quantity', this.calculateItemPrice);
+    this.comandaPanel.on('change','.quantity', this.calculateTotalPrice);
 		$(document).on('click', '#comanda .butonx', self.stergeProduse);
 		$(document).on('click', '.added-ingr .buttony', self.stergeIngrediente);
 		$(document).ready(self.sorteazaProduse);
 		$('.page-link').on('click', self.pageLinks);
 		$(".parola-uitata").on('click', self.ascundeModalLogin);
 		
-
 	},
 	showRated: function() {
 		$(this).parent().find('.btn.active').removeClass('active');
@@ -195,7 +198,6 @@ var meniu = {
 		tab.find('.panel.active').slideUp(100, nextPanel);
 
 		function nextPanel () { //show next panel
-
 			$(this).removeClass('active'); 
 			$('#' + atr).slideDown(100 , function () { 
 			$(this).addClass('active');
@@ -241,22 +243,44 @@ var meniu = {
       totalProdus = thisProd * (currentQuantity+1);
       $itemInBasket.find('.totalProdus').html(totalProdus + '.lei');
 		}
-
 		meniu.calculateTotalPrice();
-				
-		/*var total = 0;
-
-	
-		$(meniu.comandaPanel).find('.pret-produs').each( function(){ //total sum
-        	total += parseFloat($(this).text().trim());
-    	});
-
-		meniu.sumaProduselor.html(total);*/
-
 	},
-	calculateTotalPrice: function() {
+  calculateItemPrice : function() {
 
-	},
+    var quant = $(this).val();
+    var thisProd = $(this).parents('.item').find('.pretProdus').clone().text().replace(".lei","");
+    quant = parseInt(quant);
+    thisProd = parseFloat(thisProd.trim());
+    totalProdus = thisProd * quant;
+    $(this).parents('.item').find('.totalProdus').html(totalProdus + ' lei');
+
+  },
+  calculateTotalPrice : function() {
+
+    if(event) {
+      event.preventDefault();
+    }
+    var total = 0;
+    meniu.comandaPanel.find('.totalProdus').each( function(){
+      var pret = $(this).text().replace("lei","");
+      var cantitate = $(this).parents('.item').find('.quantity').val();
+
+      cantitate = parseInt(cantitate);
+      pret = parseFloat(pret.trim());
+      total += pret;
+    });
+    if(total<10) {
+    	$('#checkout').addClass('disabled');
+    } else {
+    	$('#checkout').removeClass('disabled');
+    }
+    var transport = 20;
+    var totalCom = transport + total;
+    meniu.afisorComanda.find('.totalPrice').html(total + ' lei');
+    meniu.afisorComanda.find('.transport').html(transport + ' lei');
+    meniu.afisorComanda.find('.totalCom').html(totalCom + ' lei');
+    meniu.sumaProduselor.html(totalCom);
+  },
 	adaugaIngrediente: function() {
 		/*checkbox*/
 		var ingredient = $('.ingrediente').val();
@@ -271,18 +295,17 @@ var meniu = {
 			var val = $(this).text();
 			(val === ingredient) ? exista = true : exista = false; 	
 		});	
-
 		(exista == true) ? $().toastmessage('showErrorToast', "Ingredientul există deja!") :
 			$(meniu.ingredientePanel).append(label);
 	}, 
 	stergeProduse: function() {
-		var cancel = parseFloat($(this).parents('.item').find('.pret-produs').text().trim());
-		var total = meniu.sumaProduselor.text();
+    var $item = $(this).parents('.item'); 
 
-		total = total - cancel;
-		meniu.sumaProduselor.html(total); //append current sum
-     	$(this).parents('.item').remove(); //remove items
-     	$(this).remove();
+    if(confirm('Esti sigur ca vrei sa stergi acest produs din cos?')) {
+      $item.remove();
+      meniu.calculateTotalPrice();
+    }
+    event.preventDefault();
 	},
 	stergeIngrediente: function() {
 		$(this).parent().remove();
@@ -291,14 +314,28 @@ var meniu = {
 		/*input*/
 		$("input"+"#" + nume).val('');
 	},
-	lanseazaComanda: function() {
+	lanseazaCheckout: function() {
 		var total = $('.raspuns').text();
-		var require = 20;	
+		var require = 30;	
 		if(total<require) {
-			$().toastmessage('showErrorToast', "Comanda trebuie sa fie de minimum 20.lei!");
-		}	else {
-			$().toastmessage('showSuccessToast', "Felicitari! Ai trimis cu succes comanda!"); 
-		}
+			$().toastmessage('showErrorToast', "Comanda trebuie sa fie de minimum 30.lei!");
+		}	
+
+		var data = {};
+		data.afisor = $('.afisorComanda').clone().html();
+
+		var request = $.ajax({
+      type: "POST",
+      url: "afisorLivrare.php",
+      data: data,
+      success: function(data) {
+      	//var result = $('<div />').append(data).find('.afisorLivrare').html();
+      	$('.afisorLivrare').html(data);
+      },
+      error: function() {
+      	$().toastmessage('showErrorToast', "Oups! Produsele din comanda nu pot fi adaugate!");
+      }
+    });
 	}, 
 	validation: function() {
 		$.validator.setDefaults({

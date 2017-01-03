@@ -295,7 +295,7 @@ $query->execute();
 								</div>
 								<div class="col-xs-8 col-sm-4 col-md-4">
 									<h3 class="subtitlu">
-										<a class="lanseaza btn  btn-custom btn-default" href="#" role="button">Lanseaza comanda!
+										<a href="logged.php#livrare" id="checkout" class="checkout btn btn-custom btn-default page-link disabled">Checkout!
 										</a>
 									</h3>
 								</div>
@@ -317,7 +317,7 @@ $query->execute();
 							</table>
 							<ul class="afisorComanda">
 								<li>
-									Total produse: <span class="totalProd">0</span>
+									Total produse: <span class="totalPrice">0</span>
 								</li>
 								<li>
 									Transport: <span class="transport">0</span>
@@ -390,7 +390,115 @@ $query->execute();
 					</div>	<!-- recomandari-panel	  -->
 				</div>
 			</div>
-		</div>
+		</div> <!-- recomandari pagina -->
+		<div class="livrare pagina">  <!-- livrare start -->
+			<div class="row">
+				<div class="livrare-col col-md-6 col-md-offset-3 col-xs-12">
+					<div class="livrare-panel panel panel-default">
+						<div class="panel-heading">	
+							<div class="row">
+								<div class="col-xs-1 col-sm-2 col-md-2"></div>
+								<div class="col-xs-10 col-sm-8 col-md-8">
+									<h3 class="subtitlu livrare-heading">Informatii facturare!</h3>
+								</div>
+								<div class="col-xs-1 col-sm-2 col-md-2"></div>
+							</div>		
+						</div>
+						<div class="panel-body">
+							<div class="row">
+						 		<div id="contents">
+									<div id="main">
+										<form action="comanda.php" method="post" id="checkout"> <!-- form livrare -->
+											<div class="contentbox fillup informatii-facturare">
+												<div class="row">
+													<div class="col-xs-1"></div>
+													<div class="col-xs-10">
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Nume</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-user"></span>
+																	</div>
+																	<input class="form-control" type="text" name="nume-livrare" placeholder = "nume">
+																</div>
+												 			</label>	
+														</div>
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Adresa:</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-home"></span>
+																	</div>
+																	<input class="form-control" type="text" name="adresa-livrare" placeholder = "adresa">
+																</div>
+												 			</label>	
+														</div>
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Oras:</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-globe"></span>
+																	</div>
+																	<input class="form-control" type="text" name="oras-livrare" placeholder = "oras">
+																</div>
+												 			</label>	
+														</div>
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Judet:</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-globe"></span>
+																	</div>
+																	<input class="form-control" type="text" name="judet-livrare" placeholder = "judet">
+																</div>
+												 			</label>	
+														</div>
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Email:</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-envelope"></span>
+																	</div>
+																	<input class="form-control" type="email" name="email-livrare" placeholder = "example@gmail.com">
+																</div>
+												 			</label>	
+														</div>
+														<div class="input">
+															<label class="login-label">
+																<p class="livrare-paragraf">Telefon:</p>
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<span class="glyphicon glyphicon-earphone"></span>
+																	</div>
+																	<input class="form-control" type="text" name="telefon-livrare" placeholder = "telefon">
+																</div>
+												 			</label>	
+														</div>
+														<div id="compute" class="contentbox">
+															<h2><span>Total</span></h2>
+															<div class="afisorLivrare">
+																<!-- ajax -->
+															</div>
+														</div> <!-- compute -->
+														<input type="submit" value="Trimite comanda!" name="trimite-comanda" class="trimite-comanda subtitlu btn btn-default">
+													</div> <!-- col -->
+													<div class="col-xs-1"></div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+						 	</div>
+						</div>
+					</div>	<!-- recomandari-panel	  -->
+				</div>
+			</div>			
+		</div> <!-- livrare end -->
 
 <?php 
 
