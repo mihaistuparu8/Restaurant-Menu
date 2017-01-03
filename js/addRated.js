@@ -86,6 +86,11 @@
 		      cantitate = parseInt(cantitate);
 		      pret = parseFloat(pret.trim());
 		      total += pret;
+		       if(total<10) {
+			    	$('#checkout').addClass('disabled');
+			    } else {
+			    	$('#checkout').removeClass('disabled');
+			    }
 		    });
 
 		    var transport = 20;
