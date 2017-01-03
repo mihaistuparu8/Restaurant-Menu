@@ -22,6 +22,8 @@ var meniu = {
 		this.comandaProduse = $("#comanda h4");
 		this.sorteaza = $("#sorteaza");
 		this.recomandariLink = $('a.recomandari');
+		this.topRated = $('.top-rated');
+		this.topVoted = $('.top-voted');
 	},
 	bindEvents: function() {
 		var self = this;
@@ -34,19 +36,54 @@ var meniu = {
 		self.mancare.on('click', self.clickItem);
 		self.addIngredientsButton.on('click', self.adaugaIngrediente);
 		self.comanda.on('click', self.lanseazaComanda);
+		self.topRated.on('click', self.showRated);
+		self.topVoted.on('click', self.showVoted);
 		self.recomandariLink.on('click', self.arataRecomandari);
 		$(document).on('click', '#comanda .butonx', self.stergeProduse);
 		$(document).on('click', '.added-ingr .buttony', self.stergeIngrediente);
+		$(document).ready(self.sorteazaProduse);
 		$('.page-link').on('click', self.pageLinks);
 		$(".parola-uitata").on('click', self.ascundeModalLogin);
 		
 
 	},
+	showRated: function() {
+		$(this).parent().find('.btn.active').removeClass('active');
+		$(this).addClass('active');
+		var rated = {};
+		var request = $.ajax({
+      type: "POST",
+      url: "ratedProducts.php",
+      data: rated,
+      success: function(rated) {
+      	$('.recomandari-result').html(rated);
+      },
+      error: function() {
+      	$().toastmessage('showErrorToast', "Oups! Nu se pot afisa produsele!");
+      }
+    });
+	},
+	showVoted: function() {
+		$(this).parent().find('.btn.active').removeClass('active');
+		$(this).addClass('active');
+		var voted = {};
+		var request = $.ajax({
+      type: "POST",
+      url: "votedProducts.php",
+      data: voted,
+      success: function(voted) {
+      	$('.recomandari-result').html(voted);
+      },
+      error: function() {
+      	$().toastmessage('showErrorToast', "Oups! Nu se pot afisa produsele!");
+      }
+    });
+	},
 	arataRecomandari: function() {
 		var recomandari = {};
 		var request = $.ajax({
 			type: "POST",
-			url: "recomandari.php",
+			url: "votedProducts.php",
 			data: recomandari,
 			success: function(data) {
 				$('.recomandari-result').html(data);
@@ -133,8 +170,8 @@ var meniu = {
 		var atr = $(this).attr('data-li');
 		var set = $('#' + atr).closest('.imaginep');
 
-		meniu.panelBody.find('span').hide();
-		$(this).find('span').show();
+		meniu.panelBody.find('.pret').hide();
+		$(this).find('.pret').show();
 		set.find('.active').removeClass('active').fadeOut(100, nextImg);
 
 		function nextImg () {
@@ -167,23 +204,57 @@ var meniu = {
 	},
 	clickItem: function() {
 
-		var nume_produs = $(this).find('h4').clone().children().remove().end().text();
-		var pret_produs = $(this).find('h4 span').clone().text();
-		var text =  "<div class=\"produs-selectat\">" 
-									+ "<p class=\"nume-produs\">" + nume_produs + "</p>" + " - " 
-		 					    + "<div class=\"pret-produs\">" + pret_produs + "</div>" 
-						      + ".lei" 
-						      + "<button class='butonx'>x</button>" + 
-		 			      "</div>";		
-		var total = 0;
+		var nume_produs = $(this).find('h4').clone().children().remove().end().text().trim();
+		var pret_produs = $(this).find('h4 span').clone().text().trim();
+		var nume_cautat = nume_produs.replace(/[^a-z0-9\s]/gi, '').replace(/,/g , "");
+		nume_cautat = nume_cautat.replace(/\s/g, "");
+		var $itemInBasket = meniu.comandaPanel.find('#'+nume_cautat);
 
-		meniu.comandaPanel.append(text);
+		if($itemInBasket.length == 0) {
+			var text =  
+				"<tr class='item' id="+ nume_cautat +">"
+				+ "<td>" 
+					+"<div class=\"produs-selectat\">" 
+						+ "<p class=\"nume-produs\">"+nume_produs+"</p>" 
+					+ "</div>"
+				+ "</td>" 
+				+ "<td>"
+			    	+ "<div class=\"pretProdus\">"+pret_produs+"</div>" 
+	      + "</td>"
+	      + "<td>" 
+	      	+ "<input type=\"number\" min=\"0\" value=\"1\" class=\"quantity\" id='quantity'/>"
+	      + "</td>"
+      	+ "<td>"
+      		+ "<span class='totalProdus'>"+pret_produs+".lei</span>"
+      	+ "</td>"
+      	+ "<td>"
+      		+ "<button class='butonx'>x</button>" 
+      	+ "</td>"	
+      + "</tr>";
+		 	meniu.comandaPanel.append(text);
+		} else {
+			var $quantityInput = $itemInBasket.find('td .quantity');
+      var currentQuantity = parseInt( $quantityInput.val() );   
+      $quantityInput.val(currentQuantity+1);
+      var thisProd = $itemInBasket.find('.pretProdus').clone().text().replace(".lei","");
+      thisProd = parseFloat(thisProd);
+      totalProdus = thisProd * (currentQuantity+1);
+      $itemInBasket.find('.totalProdus').html(totalProdus + '.lei');
+		}
 
+		meniu.calculateTotalPrice();
+				
+		/*var total = 0;
+
+	
 		$(meniu.comandaPanel).find('.pret-produs').each( function(){ //total sum
         	total += parseFloat($(this).text().trim());
     	});
 
-		meniu.sumaProduselor.html(total);
+		meniu.sumaProduselor.html(total);*/
+
+	},
+	calculateTotalPrice: function() {
 
 	},
 	adaugaIngrediente: function() {
@@ -205,12 +276,12 @@ var meniu = {
 			$(meniu.ingredientePanel).append(label);
 	}, 
 	stergeProduse: function() {
-		var cancel = parseFloat($(this).parent().find('.pret-produs').text().trim());
+		var cancel = parseFloat($(this).parents('.item').find('.pret-produs').text().trim());
 		var total = meniu.sumaProduselor.text();
 
 		total = total - cancel;
 		meniu.sumaProduselor.html(total); //append current sum
-     	$(this).parent().remove(); //remove items
+     	$(this).parents('.item').remove(); //remove items
      	$(this).remove();
 	},
 	stergeIngrediente: function() {

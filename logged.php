@@ -68,6 +68,8 @@ $query->execute();
 								        <option value="ciuperci">Ciuperci</option>
 								        <option value="dublu_pepperoni">Dublu pepperoni</option>
 								        <option value="masline">Măsline</option>
+								        <option value="morcovi">Morcovi</option>
+								        <option value="patrunjel">Patrunjel</option>
 								        <option value="porumb">Porumb</option>
 								        <option value="rosii">Roșii</option>
 								        <option value="sunca">Șuncă</option>
@@ -125,6 +127,7 @@ $query->execute();
 							<img id="produs3" src="img/Pvegetariana.jpg" class="imagine" alt="...">
 							<img id="produs4" src="img/Pquattro.jpg" class="imagine" alt="...">
 							<img id="produs5" src="img/Ppepperoni.jpg" class="imagine" alt="...">
+							<img id="produs6" src="img/Pulpepui.jpg" class="imagine" alt="...">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-3">
@@ -299,7 +302,29 @@ $query->execute();
 							</div>					
 						</div>
 						<div class="co panel-body">
-							<ul id="comanda">
+							<table>
+								<thead>
+									<tr>
+										<th>Produse</th>
+										<th>Pret unitar</th>
+										<th>Cantitate</th>			
+										<th>Pret total</th>
+										<th>Sterge</th>	
+									</tr>
+								</thead>
+								<tbody id="comanda">
+								</tbody>
+							</table>
+							<ul class="afisorComanda">
+								<li>
+									Total produse: <span class="totalProd">0</span>
+								</li>
+								<li>
+									Transport: <span class="transport">0</span>
+								</li>
+								<li>
+									Total comanda: <span class="totalCom">0</span>
+								</li>
 							</ul>
 						</div>
 					</div>		
@@ -349,8 +374,18 @@ $query->execute();
 								</div>
 							</div>					
 						</div>
-						<div class="recomandari-result panel-body">
-							
+						<div class="panel-body">
+							<div class="row">
+						 		<div class="col-xs-4"></div>
+							 	<div class="col-xs-4 recom-buttons">
+									<button class="btn active btn-default top-voted subtitlu">Cele mai votate!</button>
+									<button class="btn btn-default top-rated subtitlu">Cele mai apreciate!</button>
+								</div>
+							 	<div class="col-xs-4"></div>
+						 	</div>
+							<div class="recomandari-result">
+								<!-- 	ajax -->
+							</div>
 						</div>
 					</div>	<!-- recomandari-panel	  -->
 				</div>

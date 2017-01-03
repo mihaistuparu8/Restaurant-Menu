@@ -2,17 +2,18 @@
 require_once 'db.php';
 
 $rec = $db->prepare('SELECT * FROM sac_media_rating RIGHT JOIN sac_produse'.
-		' ON sac_media_rating.id_produs = sac_produse.id_produs'		
+		' ON sac_media_rating.id_produs = sac_produse.id_produs'.
+		' ORDER BY sac_media_rating.voturi DESC LIMIT 8;'		
 		);
 	$rec->execute(); 
  ?>
 
- <div class="row">
+ <div class="row rate-row">
 	<?php foreach ($rec as $row): ?>
 	  <div class="col-sm-6 col-md-3">
-	    <div class="thumbnail">
+	    <div class="thumbnail ratedp">
 	      <img src="img/food/produs<?php echo $row['id_produs'];?>.jpg" alt="..."> 
-	      <div class="caption">
+	      <div class="continut-produs caption">
 	        <h4 class="pizaa">
 						<?php echo $row['nume_produs']; ?> 
 						<span class="badge pret">
@@ -31,15 +32,16 @@ $rec = $db->prepare('SELECT * FROM sac_media_rating RIGHT JOIN sac_produse'.
 			    	<?php if($row['voturi'] == NULL): ?>
 			    		<p class="no-votes">Produsul nu a primit voturi!</p>
 			    	<?php else: ?>
-			    	(Rating <span id="media"><?php echo $row['media']; ?></span>
+			    	(Rating <span class="media"><?php echo $row['media']; ?></span>
 			      Bazat pe <span id="voturi"><?php echo $row['voturi']; ?></span>  voturi.)
 			    <?php endif; ?>
-			    	<p class="p-ingrediente">Ingrediente: <?php echo $row['ingrediente']; ?></p>
 			    </div>
 	        <p class="p-ingrediente">Ingrediente: <?php echo $row['ingrediente']; ?></p>
-	        <p><a href="#" class="btn btn-primary" role="button">Adauga!</a></p>
+	        <p><button class="btn btn-primary added-vote" role="button">Adauga!</button></p>
 	      </div>
 	    </div>
 	  </div>
 	<?php endforeach; ?>
 </div>
+<script src="js/addRated.js"></script>
+
